@@ -6,10 +6,10 @@ env:
 
 # When this action will be executed
 on:
-  # Automatically trigger it when detected changes in repo
-  push:
-    branches: 
-      [ main ]
+  # Automatically trigger it when detected changes in repo. Remove comments to enable
+  #push:
+  #  branches: 
+  #    [ main ]
 
   # Allow mannually trigger 
   workflow_dispatch:      
@@ -41,25 +41,3 @@ jobs:
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
           file: ./Dockerfile
-
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Lowercase the repo name and username
-        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
-
-      - name: Deploy to containerapp
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp registry set -n ${{ env.AZURE_CONTAINER_APP_NAME }} -g ${{ env.AZURE_GROUP_NAME }} --server ghcr.io --username  ${{ github.actor }} --password ${{ secrets.PAT }}
-            az containerapp update -n ${{ env.AZURE_CONTAINER_APP_NAME }} -g ${{ env.AZURE_GROUP_NAME }} --image ghcr.io/${{ env.REPO }}:${{ github.sha }}
