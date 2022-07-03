@@ -24,3 +24,11 @@ There are a few things that might get you into a failed state when deploying:
 * Not using authentication for accessing the remote registry (ghcr.io in this case). Authentication is always required
 * Not using a PAT (Personal Access Token) or using a PAT that doesn't have write permissions for "packages".
 * Different port than 80 in the container. By default Azure Container Apps use 80. Update to match the container.
+
+If running into trouble, check logs in the portal or use the following with the Azure CLI:
+
+```
+az containerapp logs  show  --name $CONTAINER_APP_NAME --resource-group $RESOURCE_GROUP_NAME --follow
+```
+
+Update both variables to match your environment
