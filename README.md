@@ -8,6 +8,18 @@ Learn how to deploy an ML container with FastAPI and deploy it to [Azure Contain
 
 The access token will need to be added as an Action secret. [Create one](https://github.com/settings/tokens/new?description=Azure+Container+Apps+access&scopes=write:packages) with enough permissions to write to packages.
 
+## Create an Azure Service Principal
+
+You'll need the following:
+
+1. An Azure subscription ID [find it here](https://portal.azure.com/#view/Microsoft_Azure_Billing/SubscriptionsBlade) or [follow this guide](https://docs.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
+1. A Service Principal with the following details the AppID, password, and tenant information. Create one with: `az ad sp create-for-rbac -n "REST API Service Principal"` and assign the IAM role for the subscription. Alternatively set the proper role access using the following command (use a real subscription id and replace it):
+
+```
+az ad sp create-for-rbac --name "CICD" --role contributor --scopes /subscriptions/$AZURE_SUBSCRIPTION_ID --sdk-auth
+``` 
+
+
 ## Azure Container Apps
 
 Make sure you have one instance already created, and then capture the name and resource group. These will be used in the workflow file.
