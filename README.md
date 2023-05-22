@@ -2,6 +2,8 @@
 
 _Take advantage of insta-scaling for live inferencing_
 
+This repository and its examples are part of the [MLOps Coursera specialization offered by Duke University](https://www.coursera.org/specializations/mlops-machine-learning-duke)
+
 Learn how to deploy an ML container with FastAPI and deploy it to [Azure Container Apps](https://docs.microsoft.com/azure/container-apps/overview?WT.mc_id=academic-0000-alfredodeza) with GitHub Actions. This repository gives you a good starting point with a Dockerfile, GitHub Actions workflow, and Python code.
 
 ## Generate a PAT
